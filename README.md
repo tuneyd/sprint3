@@ -28,3 +28,5 @@ How to receive data:
         f = open( ‘<file>’, ‘wb’)
 	    f.write(pkg_decode)
 	    f.close()
+
+![My Image](uml_microservice.jpg)
