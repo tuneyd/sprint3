@@ -28,3 +28,5 @@ How to receive data:
         f = open( ‘<file>’, ‘wb’)
 	    f.write(pkg_decode)
 	    f.close()
+
+![Alt text](/git/uml_microservice.jpg?raw=true "UML")
