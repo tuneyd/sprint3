@@ -18,13 +18,13 @@ How to receive data:
 - The microservice will return an base64 encoded.png file. Your program will decode and write the decoded data to a .png file.
 - Example code:
 		
-	import base64
+	    import base64
 		
-	# decode package
-	pkg_encode = socket.recv()		
-    pkg_decode = bytearray(base64.b64decode(pkg_encode))
+	    # decode package
+	    pkg_encode = socket.recv()		
+        pkg_decode = bytearray(base64.b64decode(pkg_encode))
 
-	# write decoded data to file		
-    f = open( ‘<file>’, ‘wb’)
-	f.write(pkg_decode)
-	f.close()
+	    # write decoded data to file		
+        f = open( ‘<file>’, ‘wb’)
+	    f.write(pkg_decode)
+	    f.close()
