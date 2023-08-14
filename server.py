@@ -1,10 +1,9 @@
+import zmq
 import time
 import sys
-import zmq
 from matplotlib import pyplot as plt
+import numpy as np
 import base64
-import json
-
 
 def server():
     port = "3000"
@@ -18,42 +17,30 @@ def server():
 
     while True:
         msg = socket.recv()
-        decode_msg = json.loads(msg)
-        print(decode_msg)
-        
         time.sleep (1)
-        if decode_msg[1] == 'b':
-            getGraph(decode_msg[0])
-            img = open('figures/graph.png', 'rb')
-            byte_img = bytearray(img.read())
-            send_img = base64.b64encode(byte_img)
-            socket.send(send_img)
-            img.close()
-        elif decode_msg[1] == 'p':
-            getChart(decode_msg[0])
-            img = open('figures/chart.png', 'rb')
-            byte_img = bytearray(img.read())
-            send_img = base64.b64encode(byte_img)
-            socket.send(send_img)
-            img.close()
-        else:
-            return
+        getGraph(msg)
+        
+        socket.send(msg)
+        img = open('save.png', 'rb')
+        byte_img = bytearray(img.read())
+        send_img = base64.b64encode(bytes)
+        socket.send(send_img)
+        img.close()
 
 
 def getGraph(data):
     """"""
-    keys = list(data.keys())
-    values = list(data.values())
-    plt.bar(keys, values)
-    plt.savefig('figures/graph.png')
-
-def getChart(data):
-    """"""
-    keys = list(data.keys())
-    values = list(data.values())
+    keys = list(data[0].keys())
+    values = list(data[0].values())
     fig = plt.figure(clear = True)
-    plt.pie(values, labels=keys, autopct='%1.1f%%')
-    plt.savefig('figures/chart.png')
+
+    if data[1] == "b":
+        plt.bar(keys, values)
+        plt.savefig('save.png')
+
+    else:
+        plt.pie(values)
+        plt.savefig("save.png")
 
 if __name__ == '__main__':
     server()
